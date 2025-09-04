@@ -4,6 +4,9 @@
 #include "GameManager.h"
 #include "Character.h"
 #include "Monster.h"
+#include "Goblin.h"
+#include "Troll.h"
+#include "Orc.h"
 
 using namespace std;
 
@@ -68,23 +71,21 @@ void GameManager::battle(Character* player)
 
 			/* codes for winning condition. */
 			
-			int earnedXP = player->xp += rand() * player->level; // rand() is placeholder.
-			int earnedGold = player->gold += rand() * player->level;// rand() is placeholder.
+			int earnedXP = player->addExp(rand() * player->level);  // rand() is placeholder.
+			int earnedGold = player->addGold(rand() * player->level);// rand() is placeholder.
 
 			player->gold += earnedGold;
 			player->xp += earnedXP;
 
 			cout << "You have earned " << earnedXP << " XP, " << earnedGold << " Golds." << endl;
 
-			if (player->xp > player->xpLimit) 
+			if (player->canLevelUp()) 
 			{
-				//player->getLevel();
-				player->xpLimit *= 2;
-				cout << "Level Up!" << endl;
+				player->levelUp();
 			}
 			else
 			{
-				player->xp += earnedXP;
+				player->addExp;
 			}
 
 			break;
